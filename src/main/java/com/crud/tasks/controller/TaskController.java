@@ -1,6 +1,5 @@
 package com.crud.tasks.controller;
 
-import org.springframework.data.annotation.Id;
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.domain.TaskDto;
 import com.crud.tasks.mapper.TaskMapper;
@@ -9,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/v1/task")
@@ -26,9 +26,9 @@ public class TaskController {
 
 
     @GetMapping(value = "getTask")
-    public TaskDto getTask(@RequestParam Id taskId) {
-        Task task = service.getTask(taskId);
-        return taskMapper.mapToTaskDto(task);
+    public TaskDto getTask(@RequestParam Long taskId) {
+        Optional<Task> task = service.getTask(taskId);
+        return taskMapper.mapToTaskDto(task.orElse(new Task(1L, "test", "test1")));
     }
 
     @DeleteMapping(value = "deleteTask")

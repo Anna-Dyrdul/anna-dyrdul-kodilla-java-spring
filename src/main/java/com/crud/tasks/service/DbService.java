@@ -3,10 +3,10 @@ package com.crud.tasks.service;
 import com.crud.tasks.domain.Task;
 import com.crud.tasks.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,5 +17,7 @@ public class DbService {
         return repository.findAll();
     }
 
-    public Task getTask(Id id) { return repository.findById(id); }
+    public Optional<Task> getTask(final Long taskId) {
+        return repository.findById(taskId);
+    }
 }
